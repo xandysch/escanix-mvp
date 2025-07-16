@@ -67,6 +67,16 @@ export const ratings = pgTable("ratings", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Analytics table for tracking vendor page interactions
+export const analytics = pgTable("analytics", {
+  id: serial("id").primaryKey(),
+  vendorId: integer("vendor_id").notNull().references(() => vendors.id),
+  eventType: varchar("event_type", { length: 50 }).notNull(), // 'qr_scan', 'whatsapp_click', 'instagram_click', 'menu_view'
+  clientIp: varchar("client_ip", { length: 45 }),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export type UpsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
 
@@ -75,6 +85,9 @@ export type Vendor = typeof vendors.$inferSelect;
 
 export type InsertRating = typeof ratings.$inferInsert;
 export type Rating = typeof ratings.$inferSelect;
+
+export type InsertAnalytics = typeof analytics.$inferInsert;
+export type Analytics = typeof analytics.$inferSelect;
 
 export const insertVendorSchema = createInsertSchema(vendors).omit({
   id: true,

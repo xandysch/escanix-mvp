@@ -156,6 +156,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Vendor not found" });
       }
 
+      // Track QR scan analytics
+      const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
+      const userAgent = req.get('User-Agent') || '';
+      
+      await storage.createAnalyticsEvent({
+        vendorId,
+        eventType: 'qr_scan',
+        clientIp,
+        userAgent,
+      });
+
       // Get average rating
       const avgRating = await storage.getVendorAverageRating(vendorId);
       const ratingCount = await storage.getVendorRatingCount(vendorId);
@@ -200,6 +211,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       console.error("Error creating rating:", error);
       res.status(500).json({ message: "Failed to submit rating" });
+    }
+  });
+
+  // Analytics endpoints
+  app.get("/api/vendor/analytics", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const vendor = await storage.getVendorByUserId(userId);
+      
+      if (!vendor) {
+        return res.status(404).json({ message: "Vendor configuration not found" });
+      }
+
+      const analytics = await storage.getVendorAnalytics(vendor.id);
+      const averageRating = await storage.getVendorAverageRating(vendor.id);
+      
+      res.json({
+        ...analytics,
+        averageRating: Number(averageRating.toFixed(1)),
+      });
+    } catch (error) {
+      console.error("Error fetching analytics:", error);
+      res.status(500).json({ message: "Failed to fetch analytics" });
+    }
+  });
+
+  // Track interaction events
+  app.post("/api/client/:vendorId/track", async (req, res) => {
+    try {
+      const vendorId = parseInt(req.params.vendorId);
+      const { eventType } = req.body;
+      
+      if (isNaN(vendorId) || !eventType) {
+        return res.status(400).json({ message: "Invalid data" });
+      }
+
+      const clientIp = req.ip || req.connection.remoteAddress || 'unknown';
+      const userAgent = req.get('User-Agent') || '';
+      
+      await storage.createAnalyticsEvent({
+        vendorId,
+        eventType,
+        clientIp,
+        userAgent,
+      });
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error tracking event:", error);
+      res.status(500).json({ message: "Failed to track event" });
     }
   });
 

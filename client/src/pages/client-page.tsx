@@ -30,16 +30,30 @@ export default function ClientPage() {
     });
   };
 
-  const openWhatsApp = () => {
+  const openWhatsApp = async () => {
     if (vendor?.whatsappNumber) {
+      // Track WhatsApp click
+      try {
+        await apiRequest("POST", `/api/client/${vendorId}/track`, { eventType: 'whatsapp_click' });
+      } catch (error) {
+        console.log("Failed to track event:", error);
+      }
+      
       const cleanNumber = vendor.whatsappNumber.replace(/\D/g, '');
       const message = encodeURIComponent(`Olá! Vi sua página no Escanix e gostaria de saber mais sobre ${vendor.businessName}.`);
       window.open(`https://wa.me/${cleanNumber}?text=${message}`, '_blank');
     }
   };
 
-  const openInstagram = () => {
+  const openInstagram = async () => {
     if (vendor?.instagramHandle) {
+      // Track Instagram click
+      try {
+        await apiRequest("POST", `/api/client/${vendorId}/track`, { eventType: 'instagram_click' });
+      } catch (error) {
+        console.log("Failed to track event:", error);
+      }
+      
       const handle = vendor.instagramHandle.replace('@', '');
       window.open(`https://instagram.com/${handle}`, '_blank');
     }
@@ -57,11 +71,20 @@ export default function ClientPage() {
     }
   };
 
-  const openMenu = () => {
-    if (vendor?.menuFileUrl) {
-      window.open(vendor.menuFileUrl, '_blank');
-    } else if (vendor?.menuLink) {
-      window.open(vendor.menuLink, '_blank');
+  const openMenu = async () => {
+    if (vendor?.menuFileUrl || vendor?.menuLink) {
+      // Track menu view
+      try {
+        await apiRequest("POST", `/api/client/${vendorId}/track`, { eventType: 'menu_view' });
+      } catch (error) {
+        console.log("Failed to track event:", error);
+      }
+      
+      if (vendor?.menuFileUrl) {
+        window.open(vendor.menuFileUrl, '_blank');
+      } else if (vendor?.menuLink) {
+        window.open(vendor.menuLink, '_blank');
+      }
     }
   };
 

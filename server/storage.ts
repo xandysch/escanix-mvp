@@ -2,12 +2,15 @@ import {
   users, 
   vendors, 
   ratings,
+  analytics,
   type User, 
   type UpsertUser, 
   type Vendor,
   type InsertVendor,
   type Rating,
-  type InsertRating 
+  type InsertRating,
+  type Analytics,
+  type InsertAnalytics
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, desc, avg, count } from "drizzle-orm";
@@ -29,6 +32,15 @@ export interface IStorage {
   getTodaysRatingByIp(vendorId: number, clientIp: string): Promise<Rating | undefined>;
   getVendorAverageRating(vendorId: number): Promise<number>;
   getVendorRatingCount(vendorId: number): Promise<number>;
+  
+  // Analytics operations
+  createAnalyticsEvent(event: InsertAnalytics): Promise<Analytics>;
+  getVendorAnalytics(vendorId: number): Promise<{
+    qrScans: number;
+    whatsappClicks: number;
+    instagramClicks: number;
+    menuViews: number;
+  }>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -143,6 +155,49 @@ export class DatabaseStorage implements IStorage {
       .where(eq(ratings.vendorId, vendorId));
     
     return result[0]?.count || 0;
+  }
+
+  // Analytics operations
+  async createAnalyticsEvent(eventData: InsertAnalytics): Promise<Analytics> {
+    const [event] = await db
+      .insert(analytics)
+      .values(eventData)
+      .returning();
+    return event;
+  }
+
+  async getVendorAnalytics(vendorId: number): Promise<{
+    qrScans: number;
+    whatsappClicks: number;
+    instagramClicks: number;
+    menuViews: number;
+  }> {
+    const qrScansResult = await db
+      .select({ count: count() })
+      .from(analytics)
+      .where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'qr_scan')));
+
+    const whatsappResult = await db
+      .select({ count: count() })
+      .from(analytics)
+      .where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'whatsapp_click')));
+
+    const instagramResult = await db
+      .select({ count: count() })
+      .from(analytics)
+      .where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'instagram_click')));
+
+    const menuResult = await db
+      .select({ count: count() })
+      .from(analytics)
+      .where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'menu_view')));
+
+    return {
+      qrScans: qrScansResult[0]?.count || 0,
+      whatsappClicks: whatsappResult[0]?.count || 0,
+      instagramClicks: instagramResult[0]?.count || 0,
+      menuViews: menuResult[0]?.count || 0,
+    };
   }
 }
 
