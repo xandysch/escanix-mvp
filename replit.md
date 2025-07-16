@@ -7,6 +7,8 @@ Escanix is a full-stack web application that enables vendors to create customize
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Language: Portuguese (Brazilian) - All user-facing content should be in Portuguese.
+Authentication: Replit Auth integration (privacy consent pages may appear in English as provided by Replit).
 
 ## System Architecture
 

@@ -41,8 +41,8 @@ export default function Dashboard() {
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
       toast({
-        title: "Unauthorized",
-        description: "You are logged out. Logging in again...",
+        title: "Não Autorizado",
+        description: "Você foi desconectado. Fazendo login novamente...",
         variant: "destructive",
       });
       setTimeout(() => {
@@ -99,15 +99,15 @@ export default function Dashboard() {
     onSuccess: () => {
       toast({
         title: "Configuração Salva",
-        description: "Sua página foi atualizada com sucesso!",
+        description: "Sua página foi atualizada com sucesso! Agora você pode gerar seu QR Code.",
       });
       queryClient.invalidateQueries({ queryKey: ["/api/vendor/config"] });
     },
     onError: (error) => {
       if (isUnauthorizedError(error)) {
         toast({
-          title: "Unauthorized",
-          description: "You are logged out. Logging in again...",
+          title: "Não Autorizado",
+          description: "Você foi desconectado. Fazendo login novamente...",
           variant: "destructive",
         });
         setTimeout(() => {

@@ -26,13 +26,20 @@ export default function Landing() {
               Perfeito para vendedores de bebidas em saquinhos stand pouch.
             </p>
             
-            <Button 
-              onClick={() => window.location.href = '/api/login'}
-              size="lg"
-              className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg"
-            >
-              Começar Agora
-            </Button>
+            <div className="space-y-4">
+              <Button 
+                onClick={() => window.location.href = '/api/login'}
+                size="lg"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg"
+              >
+                Começar Agora
+              </Button>
+              
+              <p className="text-sm text-gray-500 max-w-md mx-auto">
+                Ao continuar, você será redirecionado para fazer login com sua conta Replit.
+                O processo de autorização pode aparecer em inglês (fornecido pelo Replit).
+              </p>
+            </div>
           </div>
 
           {/* Features Grid */}
