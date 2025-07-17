@@ -71,7 +71,7 @@ export default function InteractiveDashboard() {
 
   const { data: analytics, isLoading: analyticsLoading } = useQuery({
     queryKey: ["/api/vendor/analytics"],
-    enabled: isAuthenticated && vendorConfig,
+    enabled: isAuthenticated && !!vendorConfig,
   });
 
   const form = useForm<FormData>({
