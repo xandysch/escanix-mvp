@@ -122,10 +122,26 @@ export default function ClientPageOrkut() {
     );
   }
 
+  const backgroundGradient = vendor.backgroundColorStart && vendor.backgroundColorEnd 
+    ? `linear-gradient(135deg, ${vendor.backgroundColorStart}, ${vendor.backgroundColorEnd})`
+    : 'linear-gradient(135deg, #9333ea, #ec4899)';
+
+  const backgroundClass = vendor.backgroundColorStart && vendor.backgroundColorEnd
+    ? ''
+    : 'from-purple-50 via-pink-50 to-orange-50';
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+    <div 
+      className={`min-h-screen ${backgroundClass}`}
+      style={vendor.backgroundColorStart && vendor.backgroundColorEnd ? {
+        background: `linear-gradient(135deg, ${vendor.backgroundColorStart}10, ${vendor.backgroundColorEnd}10)`
+      } : {}}
+    >
       {/* Header estilo Orkut */}
-      <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6 relative overflow-hidden">
+      <div 
+        className="text-white p-6 relative overflow-hidden"
+        style={{ background: backgroundGradient }}
+      >
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="flex items-center justify-between">
@@ -175,9 +191,12 @@ export default function ClientPageOrkut() {
                 onClick={() => setActiveTab(tab)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab
-                    ? "border-purple-500 text-purple-600"
+                    ? `text-gray-700`
                     : "border-transparent text-gray-500 hover:text-gray-700"
                 }`}
+                style={activeTab === tab ? {
+                  borderColor: vendor.backgroundColorStart || '#9333ea'
+                } : {}}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
@@ -194,7 +213,7 @@ export default function ClientPageOrkut() {
             <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <MapPin className="h-5 w-5 text-purple-600" />
+                  <MapPin className="h-5 w-5" style={{ color: vendor.backgroundColorStart || '#9333ea' }} />
                   Informações
                 </CardTitle>
               </CardHeader>
@@ -254,7 +273,7 @@ export default function ClientPageOrkut() {
             <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <Users className="h-5 w-5 text-purple-600" />
+                  <Users className="h-5 w-5" style={{ color: vendor.backgroundColorStart || '#9333ea' }} />
                   Redes Sociais
                 </CardTitle>
               </CardHeader>
@@ -345,7 +364,7 @@ export default function ClientPageOrkut() {
                   <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
                     <CardHeader>
                       <CardTitle className="text-lg flex items-center gap-2">
-                        <MessageCircle className="h-5 w-5 text-purple-600" />
+                        <MessageCircle className="h-5 w-5" style={{ color: vendor.backgroundColorStart || '#9333ea' }} />
                         Mensagem do Proprietário
                       </CardTitle>
                     </CardHeader>
@@ -361,7 +380,7 @@ export default function ClientPageOrkut() {
                 <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
-                      <Award className="h-5 w-5 text-purple-600" />
+                      <Award className="h-5 w-5" style={{ color: vendor.backgroundColorStart || '#9333ea' }} />
                       Estatísticas
                     </CardTitle>
                   </CardHeader>
@@ -428,7 +447,8 @@ export default function ClientPageOrkut() {
                   <Button
                     onClick={handleSubmitRating}
                     disabled={rating === 0 || rateMutation.isPending}
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                    className="w-full text-white"
+                    style={{ background: backgroundGradient }}
                   >
                     <Send className="h-4 w-4 mr-2" />
                     {rateMutation.isPending ? "Enviando..." : "Enviar Avaliação"}

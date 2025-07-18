@@ -37,7 +37,8 @@ import {
   Music,
   UtensilsCrossed,
   Ticket,
-  Hash
+  Hash,
+  Palette
 } from "lucide-react";
 
 import escanixLogo from "@assets/escanix_portalE_inverse_rounded_1752843810388.png";
@@ -54,6 +55,8 @@ const formSchema = insertVendorSchema.extend({
   couponConditions: z.string().optional(),
   couponQuantity: z.number().optional(),
   couponIcon: z.string().optional(),
+  backgroundColorStart: z.string().optional(),
+  backgroundColorEnd: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -105,6 +108,8 @@ export default function InteractiveDashboard() {
       couponConditions: "",
       couponQuantity: 0,
       couponIcon: "",
+      backgroundColorStart: "#9333ea",
+      backgroundColorEnd: "#ec4899",
       menuFileUrl: "",
       menuLink: "",
       customMessage: "",
@@ -542,6 +547,65 @@ export default function InteractiveDashboard() {
                             rows={3}
                           />
                         </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-medium text-gray-900 flex items-center gap-2">
+                        <Palette className="h-5 w-5" />
+                        Personalização Visual
+                      </h3>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="backgroundColorStart" className="flex items-center gap-2">
+                            <Palette className="h-4 w-4 text-purple-600" />
+                            Cor Inicial do Fundo
+                          </Label>
+                          <div className="flex items-center gap-2 mt-2">
+                            <Input
+                              id="backgroundColorStart"
+                              type="color"
+                              {...form.register("backgroundColorStart")}
+                              className="w-16 h-10 p-1 border rounded"
+                            />
+                            <Input
+                              {...form.register("backgroundColorStart")}
+                              placeholder="#9333ea"
+                              className="flex-1"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <Label htmlFor="backgroundColorEnd" className="flex items-center gap-2">
+                            <Palette className="h-4 w-4 text-pink-600" />
+                            Cor Final do Fundo
+                          </Label>
+                          <div className="flex items-center gap-2 mt-2">
+                            <Input
+                              id="backgroundColorEnd"
+                              type="color"
+                              {...form.register("backgroundColorEnd")}
+                              className="w-16 h-10 p-1 border rounded"
+                            />
+                            <Input
+                              {...form.register("backgroundColorEnd")}
+                              placeholder="#ec4899"
+                              className="flex-1"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <Label className="text-sm font-medium text-gray-700">Prévia do Gradiente:</Label>
+                        <div 
+                          className="w-full h-16 rounded-lg mt-2 border border-gray-200"
+                          style={{
+                            background: `linear-gradient(135deg, ${form.watch("backgroundColorStart") || "#9333ea"}, ${form.watch("backgroundColorEnd") || "#ec4899"})`
+                          }}
+                        ></div>
                       </div>
                     </div>
                   </div>

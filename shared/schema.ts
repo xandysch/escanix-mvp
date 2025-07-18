@@ -60,6 +60,8 @@ export const vendors = pgTable("vendors", {
   couponConditions: text("coupon_conditions"),
   couponQuantity: integer("coupon_quantity"),
   couponIcon: text("coupon_icon"),
+  backgroundColorStart: text("background_color_start").default("#9333ea"), // purple-600
+  backgroundColorEnd: text("background_color_end").default("#ec4899"), // pink-600
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
