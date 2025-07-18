@@ -32,12 +32,19 @@ import {
   Save,
   Menu,
   Store,
-  LogOut
+  LogOut,
+  Facebook,
+  Music,
+  UtensilsCrossed
 } from "lucide-react";
+
+import escanixLogo from "@assets/escanix_portalE_inverse_rounded_1752843810388.png";
 
 const formSchema = insertVendorSchema.extend({
   whatsappNumber: z.string().optional(),
   instagramHandle: z.string().optional(),
+  facebookHandle: z.string().optional(),
+  tiktokHandle: z.string().optional(),
   spotifyPlaylistUrl: z.string().url().optional().or(z.literal("")),
   menuLink: z.string().url().optional().or(z.literal("")),
 });
@@ -83,6 +90,8 @@ export default function InteractiveDashboard() {
       address: "",
       whatsappNumber: "",
       instagramHandle: "",
+      facebookHandle: "",
+      tiktokHandle: "",
       spotifyPlaylistUrl: "",
       menuFileUrl: "",
       menuLink: "",
@@ -177,11 +186,13 @@ export default function InteractiveDashboard() {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <Store className="h-6 w-6 text-white" />
-              </div>
+              <img 
+                src={escanixLogo} 
+                alt="Escanix Logo" 
+                className="h-10 w-10 rounded-lg"
+              />
               <div>
-                <h1 className="text-xl font-bold text-gray-900">PouchPages</h1>
+                <h1 className="text-xl font-bold text-gray-900">Escanix</h1>
                 <div className="flex items-center space-x-2 text-sm text-gray-600">
                   <Avatar className="h-5 w-5">
                     <AvatarImage src={user?.profileImageUrl} />
@@ -225,7 +236,7 @@ export default function InteractiveDashboard() {
           <TabsContent value="dashboard" className="space-y-6">
             {vendorConfig ? (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   <AnalyticsCard
                     icon={QrCode}
                     title="QR Escaneados"
@@ -237,21 +248,49 @@ export default function InteractiveDashboard() {
                     icon={Star}
                     title="Avaliações"
                     value={analytics?.averageRating || "0.0"}
-                    color="green"
+                    color="yellow"
                   />
                   
                   <AnalyticsCard
                     icon={MessageSquare}
-                    title="Clicks WhatsApp"
+                    title="WhatsApp"
                     value={analytics?.whatsappClicks || 0}
                     color="green"
                   />
                   
                   <AnalyticsCard
                     icon={Instagram}
-                    title="Clicks Instagram"
+                    title="Instagram"
                     value={analytics?.instagramClicks || 0}
                     color="pink"
+                  />
+                  
+                  <AnalyticsCard
+                    icon={Facebook}
+                    title="Facebook"
+                    value={analytics?.facebookClicks || 0}
+                    color="blue"
+                  />
+                  
+                  <AnalyticsCard
+                    icon={Music}
+                    title="TikTok"
+                    value={analytics?.tiktokClicks || 0}
+                    color="purple"
+                  />
+                  
+                  <AnalyticsCard
+                    icon={Music}
+                    title="Spotify"
+                    value={analytics?.spotifyClicks || 0}
+                    color="green"
+                  />
+                  
+                  <AnalyticsCard
+                    icon={UtensilsCrossed}
+                    title="Menu"
+                    value={analytics?.menuViews || 0}
+                    color="orange"
                   />
                 </div>
 
@@ -338,28 +377,68 @@ export default function InteractiveDashboard() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="whatsappNumber">WhatsApp</Label>
-                        <Input
-                          id="whatsappNumber"
-                          {...form.register("whatsappNumber")}
-                          placeholder="(11) 99999-9999"
-                        />
-                      </div>
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-medium text-gray-900 flex items-center gap-2">
+                        <MessageSquare className="h-5 w-5" />
+                        Redes Sociais
+                      </h3>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="whatsappNumber" className="flex items-center gap-2">
+                            <MessageSquare className="h-4 w-4 text-green-600" />
+                            WhatsApp
+                          </Label>
+                          <Input
+                            id="whatsappNumber"
+                            {...form.register("whatsappNumber")}
+                            placeholder="(11) 99999-9999"
+                          />
+                        </div>
 
-                      <div>
-                        <Label htmlFor="instagramHandle">Instagram</Label>
-                        <Input
-                          id="instagramHandle"
-                          {...form.register("instagramHandle")}
-                          placeholder="@seuinstagram"
-                        />
+                        <div>
+                          <Label htmlFor="instagramHandle" className="flex items-center gap-2">
+                            <Instagram className="h-4 w-4 text-pink-600" />
+                            Instagram
+                          </Label>
+                          <Input
+                            id="instagramHandle"
+                            {...form.register("instagramHandle")}
+                            placeholder="@seuinstagram"
+                          />
+                        </div>
+                        
+                        <div>
+                          <Label htmlFor="facebookHandle" className="flex items-center gap-2">
+                            <Facebook className="h-4 w-4 text-blue-600" />
+                            Facebook
+                          </Label>
+                          <Input
+                            id="facebookHandle"
+                            {...form.register("facebookHandle")}
+                            placeholder="@seufacebook"
+                          />
+                        </div>
+                        
+                        <div>
+                          <Label htmlFor="tiktokHandle" className="flex items-center gap-2">
+                            <Music className="h-4 w-4 text-purple-600" />
+                            TikTok
+                          </Label>
+                          <Input
+                            id="tiktokHandle"
+                            {...form.register("tiktokHandle")}
+                            placeholder="@seutiktok"
+                          />
+                        </div>
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="spotifyPlaylistUrl">Link Spotify</Label>
+                      <Label htmlFor="spotifyPlaylistUrl" className="flex items-center gap-2">
+                        <Music className="h-4 w-4 text-green-600" />
+                        Link Spotify
+                      </Label>
                       <Input
                         id="spotifyPlaylistUrl"
                         {...form.register("spotifyPlaylistUrl")}
@@ -368,7 +447,10 @@ export default function InteractiveDashboard() {
                     </div>
 
                     <div>
-                      <Label>Menu (arquivo)</Label>
+                      <Label className="flex items-center gap-2">
+                        <UtensilsCrossed className="h-4 w-4 text-orange-600" />
+                        Menu (arquivo)
+                      </Label>
                       <FileUpload
                         accept=".pdf,image/*"
                         onUpload={(url) => form.setValue("menuFileUrl", url)}

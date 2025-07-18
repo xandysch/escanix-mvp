@@ -47,6 +47,8 @@ export const vendors = pgTable("vendors", {
   address: text("address"),
   whatsappNumber: varchar("whatsapp_number"),
   instagramHandle: varchar("instagram_handle"),
+  facebookHandle: varchar("facebook_handle"),
+  tiktokHandle: varchar("tiktok_handle"),
   spotifyPlaylistUrl: text("spotify_playlist_url"),
   menuFileUrl: text("menu_file_url"),
   menuLink: text("menu_link"),
@@ -71,7 +73,7 @@ export const ratings = pgTable("ratings", {
 export const analytics = pgTable("analytics", {
   id: serial("id").primaryKey(),
   vendorId: integer("vendor_id").notNull().references(() => vendors.id),
-  eventType: varchar("event_type", { length: 50 }).notNull(), // 'qr_scan', 'whatsapp_click', 'instagram_click', 'menu_view'
+  eventType: varchar("event_type", { length: 50 }).notNull(), // 'qr_scan', 'whatsapp_click', 'instagram_click', 'facebook_click', 'tiktok_click', 'spotify_click', 'menu_view'
   clientIp: varchar("client_ip", { length: 45 }),
   userAgent: text("user_agent"),
   createdAt: timestamp("created_at").defaultNow(),

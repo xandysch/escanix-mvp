@@ -39,6 +39,9 @@ export interface IStorage {
     qrScans: number;
     whatsappClicks: number;
     instagramClicks: number;
+    facebookClicks: number;
+    tiktokClicks: number;
+    spotifyClicks: number;
     menuViews: number;
   }>;
 }
@@ -170,32 +173,28 @@ export class DatabaseStorage implements IStorage {
     qrScans: number;
     whatsappClicks: number;
     instagramClicks: number;
+    facebookClicks: number;
+    tiktokClicks: number;
+    spotifyClicks: number;
     menuViews: number;
   }> {
-    const qrScansResult = await db
-      .select({ count: count() })
-      .from(analytics)
-      .where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'qr_scan')));
-
-    const whatsappResult = await db
-      .select({ count: count() })
-      .from(analytics)
-      .where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'whatsapp_click')));
-
-    const instagramResult = await db
-      .select({ count: count() })
-      .from(analytics)
-      .where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'instagram_click')));
-
-    const menuResult = await db
-      .select({ count: count() })
-      .from(analytics)
-      .where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'menu_view')));
+    const [qrScansResult, whatsappResult, instagramResult, facebookResult, tiktokResult, spotifyResult, menuResult] = await Promise.all([
+      db.select({ count: count() }).from(analytics).where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'qr_scan'))),
+      db.select({ count: count() }).from(analytics).where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'whatsapp_click'))),
+      db.select({ count: count() }).from(analytics).where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'instagram_click'))),
+      db.select({ count: count() }).from(analytics).where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'facebook_click'))),
+      db.select({ count: count() }).from(analytics).where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'tiktok_click'))),
+      db.select({ count: count() }).from(analytics).where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'spotify_click'))),
+      db.select({ count: count() }).from(analytics).where(and(eq(analytics.vendorId, vendorId), eq(analytics.eventType, 'menu_view')))
+    ]);
 
     return {
       qrScans: qrScansResult[0]?.count || 0,
       whatsappClicks: whatsappResult[0]?.count || 0,
       instagramClicks: instagramResult[0]?.count || 0,
+      facebookClicks: facebookResult[0]?.count || 0,
+      tiktokClicks: tiktokResult[0]?.count || 0,
+      spotifyClicks: spotifyResult[0]?.count || 0,
       menuViews: menuResult[0]?.count || 0,
     };
   }
