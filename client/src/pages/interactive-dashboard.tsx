@@ -35,7 +35,9 @@ import {
   LogOut,
   Facebook,
   Music,
-  UtensilsCrossed
+  UtensilsCrossed,
+  Ticket,
+  Hash
 } from "lucide-react";
 
 import escanixLogo from "@assets/escanix_portalE_inverse_rounded_1752843810388.png";
@@ -47,6 +49,11 @@ const formSchema = insertVendorSchema.extend({
   tiktokHandle: z.string().optional(),
   spotifyPlaylistUrl: z.string().url().optional().or(z.literal("")),
   menuLink: z.string().url().optional().or(z.literal("")),
+  couponTitle: z.string().optional(),
+  couponDescription: z.string().optional(),
+  couponConditions: z.string().optional(),
+  couponQuantity: z.number().optional(),
+  couponIcon: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -93,6 +100,11 @@ export default function InteractiveDashboard() {
       facebookHandle: "",
       tiktokHandle: "",
       spotifyPlaylistUrl: "",
+      couponTitle: "",
+      couponDescription: "",
+      couponConditions: "",
+      couponQuantity: 0,
+      couponIcon: "",
       menuFileUrl: "",
       menuLink: "",
       customMessage: "",
@@ -477,6 +489,60 @@ export default function InteractiveDashboard() {
                         placeholder="Mensagem especial para seus clientes..."
                         rows={3}
                       />
+                    </div>
+
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-medium text-gray-900 flex items-center gap-2">
+                        <Ticket className="h-5 w-5" />
+                        Cupom de Desconto
+                      </h3>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="couponTitle" className="flex items-center gap-2">
+                            <Ticket className="h-4 w-4 text-purple-600" />
+                            Título do Cupom
+                          </Label>
+                          <Input
+                            id="couponTitle"
+                            {...form.register("couponTitle")}
+                            placeholder="Ex: 20% OFF na primeira compra"
+                          />
+                        </div>
+                        
+                        <div>
+                          <Label htmlFor="couponQuantity" className="flex items-center gap-2">
+                            <Hash className="h-4 w-4 text-blue-600" />
+                            Quantidade Disponível
+                          </Label>
+                          <Input
+                            id="couponQuantity"
+                            type="number"
+                            {...form.register("couponQuantity", { valueAsNumber: true })}
+                            placeholder="Ex: 50"
+                          />
+                        </div>
+                        
+                        <div className="md:col-span-2">
+                          <Label htmlFor="couponDescription">Descrição do Cupom</Label>
+                          <Textarea
+                            id="couponDescription"
+                            {...form.register("couponDescription")}
+                            placeholder="Descreva o benefício do cupom..."
+                            rows={3}
+                          />
+                        </div>
+                        
+                        <div className="md:col-span-2">
+                          <Label htmlFor="couponConditions">Condições de Uso</Label>
+                          <Textarea
+                            id="couponConditions"
+                            {...form.register("couponConditions")}
+                            placeholder="Ex: Válido até 31/12/2024. Não cumulativo com outras promoções..."
+                            rows={3}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
 

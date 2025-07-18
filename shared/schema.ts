@@ -55,6 +55,11 @@ export const vendors = pgTable("vendors", {
   customMessage: text("custom_message"),
   qrCodeUrl: text("qr_code_url"),
   isActive: boolean("is_active").default(true),
+  couponTitle: text("coupon_title"),
+  couponDescription: text("coupon_description"),
+  couponConditions: text("coupon_conditions"),
+  couponQuantity: integer("coupon_quantity"),
+  couponIcon: text("coupon_icon"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

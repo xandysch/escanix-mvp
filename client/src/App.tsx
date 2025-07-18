@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 import Landing from "@/pages/landing";
 import InteractiveDashboard from "@/pages/interactive-dashboard";
-import ClientPage from "@/pages/client-page";
+import ClientPageOrkut from "@/pages/client-page-orkut";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,7 +17,7 @@ function Router() {
   return (
     <Switch>
       {/* Public client pages - no auth required */}
-      <Route path="/client/:vendorId" component={ClientPage} />
+      <Route path="/client/:vendorId" component={ClientPageOrkut} />
       
       {/* Authenticated routes */}
       {isLoading || !isAuthenticated ? (
