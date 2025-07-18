@@ -122,20 +122,18 @@ export default function ClientPageOrkut() {
     );
   }
 
-  const backgroundGradient = vendor.backgroundColorStart && vendor.backgroundColorEnd 
-    ? `linear-gradient(135deg, ${vendor.backgroundColorStart}, ${vendor.backgroundColorEnd})`
-    : 'linear-gradient(135deg, #9333ea, #ec4899)';
-
-  const backgroundClass = vendor.backgroundColorStart && vendor.backgroundColorEnd
-    ? ''
-    : 'from-purple-50 via-pink-50 to-orange-50';
+  // Use vendor colors or defaults
+  const startColor = vendor.backgroundColorStart || '#9333ea';
+  const endColor = vendor.backgroundColorEnd || '#ec4899';
+  
+  const backgroundGradient = `linear-gradient(135deg, ${startColor}, ${endColor})`;
 
   return (
     <div 
-      className={`min-h-screen ${backgroundClass}`}
-      style={vendor.backgroundColorStart && vendor.backgroundColorEnd ? {
-        background: `linear-gradient(135deg, ${vendor.backgroundColorStart}10, ${vendor.backgroundColorEnd}10)`
-      } : {}}
+      className="min-h-screen"
+      style={{
+        background: `linear-gradient(135deg, ${startColor}10, ${endColor}10)`
+      }}
     >
       {/* Header estilo Orkut */}
       <div 
@@ -195,7 +193,7 @@ export default function ClientPageOrkut() {
                     : "border-transparent text-gray-500 hover:text-gray-700"
                 }`}
                 style={activeTab === tab ? {
-                  borderColor: vendor.backgroundColorStart || '#9333ea'
+                  borderColor: startColor
                 } : {}}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -213,7 +211,7 @@ export default function ClientPageOrkut() {
             <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <MapPin className="h-5 w-5" style={{ color: vendor.backgroundColorStart || '#9333ea' }} />
+                  <MapPin className="h-5 w-5" style={{ color: startColor }} />
                   Informações
                 </CardTitle>
               </CardHeader>
@@ -273,7 +271,7 @@ export default function ClientPageOrkut() {
             <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <Users className="h-5 w-5" style={{ color: vendor.backgroundColorStart || '#9333ea' }} />
+                  <Users className="h-5 w-5" style={{ color: startColor }} />
                   Redes Sociais
                 </CardTitle>
               </CardHeader>
@@ -364,7 +362,7 @@ export default function ClientPageOrkut() {
                   <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
                     <CardHeader>
                       <CardTitle className="text-lg flex items-center gap-2">
-                        <MessageCircle className="h-5 w-5" style={{ color: vendor.backgroundColorStart || '#9333ea' }} />
+                        <MessageCircle className="h-5 w-5" style={{ color: startColor }} />
                         Mensagem do Proprietário
                       </CardTitle>
                     </CardHeader>
@@ -380,7 +378,7 @@ export default function ClientPageOrkut() {
                 <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
                   <CardHeader>
                     <CardTitle className="text-lg flex items-center gap-2">
-                      <Award className="h-5 w-5" style={{ color: vendor.backgroundColorStart || '#9333ea' }} />
+                      <Award className="h-5 w-5" style={{ color: startColor }} />
                       Estatísticas
                     </CardTitle>
                   </CardHeader>
