@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import escanixLogo from "@assets/escanix_favicon32_from_sharp_1752852391303.png";
 
 export default function Landing() {
   return (
@@ -9,11 +10,11 @@ export default function Landing() {
           {/* Hero Section */}
           <div className="mb-12">
             <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center">
-                <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h2v2h-2v-2zm-2 2h2v2h-2v-2zm2 2h2v2h-2v-2zm0 2h2v2h-2v-2z"/>
-                </svg>
-              </div>
+              <img 
+                src={escanixLogo} 
+                alt="Escanix Logo" 
+                className="w-12 h-12"
+              />
               <h1 className="text-4xl font-bold text-gray-900">Escanix</h1>
             </div>
             

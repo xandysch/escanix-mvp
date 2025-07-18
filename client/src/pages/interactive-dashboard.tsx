@@ -497,10 +497,15 @@ export default function InteractiveDashboard() {
                     </div>
 
                     <div className="space-y-4">
-                      <h3 className="text-lg font-medium text-gray-900 flex items-center gap-2">
-                        <Ticket className="h-5 w-5" />
-                        Cupom de Desconto
-                      </h3>
+                      <div>
+                        <h3 className="text-lg font-medium text-gray-900 flex items-center gap-2">
+                          <Ticket className="h-5 w-5" />
+                          Cupom de Desconto (Opcional)
+                        </h3>
+                        <p className="text-sm text-gray-600 mt-1">
+                          Deixe em branco se não quiser oferecer cupons. Só aparecerá na página se preenchido.
+                        </p>
+                      </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
