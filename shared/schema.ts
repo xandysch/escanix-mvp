@@ -103,6 +103,28 @@ export const insertVendorSchema = createInsertSchema(vendors).omit({
   userId: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  // Make URL fields optional with empty string allowed
+  spotifyPlaylistUrl: z.string().url().optional().or(z.literal("")),
+  menuLink: z.string().url().optional().or(z.literal("")),
+  // Make optional string fields truly optional
+  businessDescription: z.string().optional(),
+  logoUrl: z.string().optional(),
+  address: z.string().optional(),
+  whatsappNumber: z.string().optional(),
+  instagramHandle: z.string().optional(),
+  facebookHandle: z.string().optional(),
+  tiktokHandle: z.string().optional(),
+  menuFileUrl: z.string().optional(),
+  customMessage: z.string().optional(),
+  qrCodeUrl: z.string().optional(),
+  couponTitle: z.string().optional(),
+  couponDescription: z.string().optional(),
+  couponConditions: z.string().optional(),
+  couponQuantity: z.number().optional(),
+  couponIcon: z.string().optional(),
+  backgroundColorStart: z.string().optional(),
+  backgroundColorEnd: z.string().optional(),
 });
 
 export const insertRatingSchema = createInsertSchema(ratings).omit({

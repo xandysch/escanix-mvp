@@ -29,7 +29,7 @@ export default function Landing() {
             
             <div className="space-y-4">
               <Button 
-                onClick={() => window.location.href = '/api/login'}
+                onClick={() => window.location.href = '/login'}
                 size="lg"
                 className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 text-lg"
               >
@@ -37,8 +37,7 @@ export default function Landing() {
               </Button>
               
               <p className="text-sm text-gray-500 max-w-md mx-auto">
-                Ao continuar, você será redirecionado para fazer login com sua conta Replit.
-                O processo de autorização pode aparecer em inglês (fornecido pelo Replit).
+                Crie sua conta gratuita e comece a personalizar sua página em minutos.
               </p>
             </div>
           </div>

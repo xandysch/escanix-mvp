@@ -21,14 +21,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { FileUpload } from "@/components/file-upload";
 import { QRGenerator } from "@/components/qr-generator";
 
-import { Store, Share2, Menu, MessageSquare, QrCode, Eye, Save } from "lucide-react";
+import { Store, Share2, Menu, MessageSquare, QrCode, Eye, Save, Palette } from "lucide-react";
 
-const formSchema = insertVendorSchema.extend({
-  whatsappNumber: z.string().optional(),
-  instagramHandle: z.string().optional(),
-  spotifyPlaylistUrl: z.string().url().optional().or(z.literal("")),
-  menuLink: z.string().url().optional().or(z.literal("")),
-});
+const formSchema = insertVendorSchema;
 
 type FormData = z.infer<typeof formSchema>;
 
@@ -70,6 +65,8 @@ export default function Dashboard() {
       menuFileUrl: "",
       menuLink: "",
       customMessage: "",
+      backgroundColorStart: "#9333ea",
+      backgroundColorEnd: "#ec4899",
     },
   });
 
@@ -87,6 +84,8 @@ export default function Dashboard() {
         menuFileUrl: vendorConfig.menuFileUrl || "",
         menuLink: vendorConfig.menuLink || "",
         customMessage: vendorConfig.customMessage || "",
+        backgroundColorStart: vendorConfig.backgroundColorStart || "#9333ea",
+        backgroundColorEnd: vendorConfig.backgroundColorEnd || "#ec4899",
       });
     }
   }, [vendorConfig, form]);
@@ -570,6 +569,69 @@ export default function Dashboard() {
                   />
                 </CardContent>
               </Card>
+
+              {/* Color Customization Card */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Palette className="w-5 h-5 text-purple-600 mr-2" />
+                    Cores da Página
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="backgroundColorStart" className="flex items-center gap-2">
+                        <Palette className="h-4 w-4 text-purple-600" />
+                        Cor Inicial do Fundo
+                      </Label>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Input
+                          id="backgroundColorStart"
+                          type="color"
+                          {...form.register("backgroundColorStart")}
+                          className="w-16 h-10 p-1 border rounded"
+                        />
+                        <Input
+                          {...form.register("backgroundColorStart")}
+                          placeholder="#9333ea"
+                          className="flex-1"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="backgroundColorEnd" className="flex items-center gap-2">
+                        <Palette className="h-4 w-4 text-pink-600" />
+                        Cor Final do Fundo
+                      </Label>
+                      <div className="flex items-center gap-2 mt-2">
+                        <Input
+                          id="backgroundColorEnd"
+                          type="color"
+                          {...form.register("backgroundColorEnd")}
+                          className="w-16 h-10 p-1 border rounded"
+                        />
+                        <Input
+                          {...form.register("backgroundColorEnd")}
+                          placeholder="#ec4899"
+                          className="flex-1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <Label className="text-sm font-medium text-gray-700">Prévia do Gradiente:</Label>
+                    <div 
+                      className="w-full h-16 rounded-lg mt-2 border border-gray-200"
+                      style={{
+                        background: `linear-gradient(135deg, ${form.watch("backgroundColorStart") || "#9333ea"}, ${form.watch("backgroundColorEnd") || "#ec4899"})`
+                      }}
+                    ></div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Preview & QR Code Panel */}
@@ -590,7 +652,13 @@ export default function Dashboard() {
                   
                   {/* Mobile Frame Preview */}
                   <div className="bg-gray-900 rounded-2xl p-2 max-w-sm mx-auto">
-                    <div className="bg-white rounded-xl overflow-hidden h-96 p-4">
+                    <div 
+                      className="rounded-xl overflow-hidden h-96 p-4"
+                      style={{
+                        background: `linear-gradient(135deg, ${form.watch("backgroundColorStart") || "#9333ea"}, ${form.watch("backgroundColorEnd") || "#ec4899"})`
+                      }}
+                    >
+                      <div className="bg-white rounded-lg p-3 h-full overflow-hidden">
                       {/* Mini preview */}
                       <div className="text-center">
                         <div className="w-12 h-12 mx-auto mb-2 rounded-lg overflow-hidden bg-gray-100">
@@ -639,6 +707,7 @@ export default function Dashboard() {
                       </div>
                     </div>
                   </div>
+                </div>
                   
                   <div className="text-center mt-4">
                     <Button

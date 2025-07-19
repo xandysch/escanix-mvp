@@ -137,8 +137,14 @@ export default function ClientPage() {
     );
   }
 
+  // Create background gradient using vendor colors
+  const backgroundGradient = `linear-gradient(135deg, ${vendor.backgroundColorStart || "#9333ea"}, ${vendor.backgroundColorEnd || "#ec4899"})`;
+  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div 
+      className="min-h-screen"
+      style={{ background: backgroundGradient }}
+    >
       
       {/* Header with Business Info */}
       <header className="bg-white shadow-sm">

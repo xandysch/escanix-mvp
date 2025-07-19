@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/useAuth";
 
 import Landing from "@/pages/landing";
+import Login from "@/pages/login";
 import InteractiveDashboard from "@/pages/interactive-dashboard";
 import ClientPageOrkut from "@/pages/client-page-orkut";
 import NotFound from "@/pages/not-found";
@@ -18,6 +19,9 @@ function Router() {
     <Switch>
       {/* Public client pages - no auth required */}
       <Route path="/client/:vendorId" component={ClientPageOrkut} />
+      
+      {/* Login page */}
+      <Route path="/login" component={Login} />
       
       {/* Authenticated routes */}
       {isLoading || !isAuthenticated ? (
