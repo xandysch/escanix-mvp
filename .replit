@@ -8,7 +8,7 @@ channel = "stable-24_05"
 [deployment]
 deploymentTarget = "cloudrun"
 build = ["npm", "run", "build"]
-run = ["sh", "-c", "www.escanix.com.br"]
+run = ["sh", "-c", "npm start"]
 
 [env]
 PORT = "5000"
