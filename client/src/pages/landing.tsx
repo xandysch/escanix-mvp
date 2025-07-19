@@ -23,8 +23,8 @@ export default function Landing() {
             </h2>
             
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Crie mini-páginas customizadas para seus clientes acessarem via QR code. 
-              Perfeito para vendedores de bebidas em saquinhos stand pouch.
+              Feito para vendedores físicos e autônomos. Crie sua página + QR code em segundos.
+              Ideal para cardápios, produtos ou portfólios - sem necessidade de loja online.
             </p>
             
             <div className="space-y-4">
@@ -84,17 +84,17 @@ export default function Landing() {
           {/* Benefits */}
           <div className="text-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-8">
-              Perfeito para vendedores de bebidas
+              Perfeito para todo tipo de negócio
             </h3>
             
-            <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               <div className="flex items-center space-x-3">
                 <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
                   <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-gray-700">Contato direto WhatsApp</span>
+                <span className="text-gray-700">QR bonito e integrado</span>
               </div>
               
               <div className="flex items-center space-x-3">
@@ -103,7 +103,7 @@ export default function Landing() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-gray-700">Upload de cardápio</span>
+                <span className="text-gray-700">Personalização visual fácil (logo, cores, ícones)</span>
               </div>
               
               <div className="flex items-center space-x-3">
@@ -112,7 +112,7 @@ export default function Landing() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-gray-700">Integração com redes sociais</span>
+                <span className="text-gray-700">Sem necessidade de loja online</span>
               </div>
               
               <div className="flex items-center space-x-3">
@@ -121,7 +121,43 @@ export default function Landing() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-gray-700">Sistema de avaliações</span>
+                <span className="text-gray-700">Sem mensalidade obrigatória</span>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-gray-700">Uma página contendo tudo</span>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-gray-700">Modelo justo baseado no volume de uso</span>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-gray-700">Suporte a WhatsApp</span>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-gray-700">Ideal para cardápios, produtos ou portfólios</span>
               </div>
             </div>
           </div>
