@@ -98,15 +98,19 @@ Authentication: Replit Auth integration (privacy consent pages may appear in Eng
 - **File Storage**: Local uploads directory
 
 ### Production Build
-- **Frontend**: Vite production build to `dist/public` (moved to `dist/` via build script)
+- **Frontend**: Vite production build to `dist/public/` (maintained in correct location)
 - **Backend**: ESBuild bundling to `dist/index.js`
-- **Build Script**: Custom `build-deploy.js` for deployment directory alignment
-- **Static Assets**: Express static file serving from `dist/`
+- **Build Script**: Custom `build-deploy.js` maintains proper directory structure
+- **Static Assets**: Express static file serving from `dist/public/`
 - **Environment**: Node.js production mode with optimizations
+- **Fixed**: Corrected deployment configuration for Replit hosting
 
 ### Deployment Configuration
-- **Issue Resolved**: Build output directory mismatch between Vite config and deployment expectations
-- **Solution**: Custom build script (`build-deploy.js`) that reorganizes files for proper deployment
+- **Issue Resolved**: Build output directory mismatch between Vite config and server static file expectations
+- **Root Cause**: Server expected files in `dist/public/` but previous build script moved them to `dist/` 
+- **Solution**: Updated `build-deploy.js` to maintain `dist/public/` structure for server compatibility
+- **Commands**: Use `node build-deploy.js` for production build, `npm start` for production server
+- **Environment**: Ensure NODE_ENV=production is set for deployment
 - **Recommended**: Use Autoscale deployment type for full-stack functionality
 
 ### Key Features

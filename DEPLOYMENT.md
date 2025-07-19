@@ -6,19 +6,27 @@ Escanix is a full-stack Express application with a React frontend. Due to the bu
 
 ## Deployment Configuration Fix
 
-The original deployment failed because:
+### Original Issue
+The deployment was failing with the error:
+```
+Invalid run command 'www.escanix.com.br' - this appears to be a domain name rather than an executable command
+```
+
+### Root Cause Analysis
+The deployment was failing because:
+- **Server static file serving**: Expected files in `dist/public/` directory
 - **Vite builds to**: `dist/public/` (configured in vite.config.ts)
-- **Deployment expects**: `dist/` as the public directory
-- **Server serves from**: `server/public` in development, but needs `dist/` in production
+- **Previous build script**: Was moving files from `dist/public/` to `dist/` 
+- **Result**: Server couldn't find static files in expected location
 
-## Solution Applied
+### Solution Applied
 
-A custom build script (`build-deploy.js`) was created that:
+Fixed the build script (`build-deploy.js`) to:
 
-1. Runs the standard Vite build process (outputs to `dist/public/`)
-2. Builds the Express server bundle (outputs to `dist/index.js`)
-3. Moves all frontend files from `dist/public/` to `dist/`
-4. Cleans up the empty `dist/public/` directory
+1. Run the standard Vite build process (outputs to `dist/public/`)
+2. Build the Express server bundle (outputs to `dist/index.js`)
+3. **Keep the `dist/public/` structure** that the server expects
+4. Maintain proper directory structure for deployment
 
 ## Deployment Commands
 
@@ -27,9 +35,23 @@ A custom build script (`build-deploy.js`) was created that:
 node build-deploy.js
 ```
 
+**Alternative (using npm):**
+```bash
+npm run build
+```
+
 ### For Development:
 ```bash
 npm run dev
+```
+
+### For Production Start:
+```bash
+npm start
+```
+**Direct command:**
+```bash
+NODE_ENV=production node dist/index.js
 ```
 
 ## Deployment Structure
@@ -38,11 +60,12 @@ After running the build script, your deployment directory (`dist/`) will contain
 
 ```
 dist/
-├── index.html          # Frontend entry point
-├── assets/             # Frontend assets (CSS, JS, images)
-│   ├── index-*.css
-│   ├── index-*.js
-│   └── *.png           # Logo and favicon files
+├── public/             # Frontend static files (served by Express)
+│   ├── index.html      # Frontend entry point
+│   └── assets/         # Frontend assets (CSS, JS, images)
+│       ├── index-*.css
+│       ├── index-*.js
+│       └── *.png       # Logo and favicon files
 └── index.js            # Backend Express server bundle
 ```
 
