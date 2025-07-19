@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import escanixLogo from "@assets/escanix_favicon32_from_sharp_1752852391303.png";
+import escanixLogo from "@assets/escanix_favicon128_from_sharp_1752916285807.png";
 
 export default function Landing() {
   return (
