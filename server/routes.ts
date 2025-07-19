@@ -1,10 +1,10 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import express from "express";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { insertVendorSchema, insertRatingSchema } from "@shared/schema";
-import multer from "multer";
+import multer, { type FileFilterCallback } from "multer";
 import path from "path";
 import QRCode from "qrcode";
 import { z } from "zod";
@@ -15,7 +15,7 @@ const upload = multer({
   limits: {
     fileSize: 5 * 1024 * 1024, // 5MB limit
   },
-  fileFilter: (req: any, file: any, cb: any) => {
+  fileFilter: (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
     // Allow images and PDFs
     const allowedTypes = /jpeg|jpg|png|gif|pdf/;
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
@@ -81,7 +81,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // File upload routes
-  app.post("/api/upload/logo", isAuthenticated, upload.single('logo'), async (req: any, res) => {
+  app.post("/api/upload/logo", isAuthenticated, upload.single('logo'), async (req: Request & { file?: Express.Multer.File }, res: Response) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
@@ -95,7 +95,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/upload/menu", isAuthenticated, upload.single('menu'), async (req: any, res) => {
+  app.post("/api/upload/menu", isAuthenticated, upload.single('menu'), async (req: Request & { file?: Express.Multer.File }, res: Response) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
