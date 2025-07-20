@@ -25,7 +25,15 @@ export function FileUpload({ accept, onUpload, uploadUrl, currentFile, className
       const formData = new FormData();
       formData.append(uploadUrl.includes('logo') ? 'logo' : 'menu', file);
       
-      const response = await apiRequest("POST", uploadUrl, formData);
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+      
       return response.json();
     },
     onSuccess: (data) => {
@@ -36,9 +44,10 @@ export function FileUpload({ accept, onUpload, uploadUrl, currentFile, className
       });
     },
     onError: (error) => {
+      console.error('Upload error:', error);
       toast({
         title: "Erro no upload",
-        description: "Falha ao enviar arquivo. Tente novamente.",
+        description: "Falha ao enviar arquivo. Verifique se está logado e tente novamente.",
         variant: "destructive",
       });
     },

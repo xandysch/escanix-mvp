@@ -99,15 +99,13 @@ export default function Login() {
               variant="outline"
               className="w-full border-purple-200 hover:bg-purple-50"
             >
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 4v4H7v2h4v4h2v-4h4v-2h-4V6h-2z"/>
-              </svg>
-              Continuar com Replit
+              <LogIn className="w-5 h-5 mr-2" />
+              Entrar como Vendedor
             </Button>
             
             <p className="text-xs text-gray-500 text-center">
-              Você será redirecionado para o Replit para fazer login com segurança.
-              O processo de autorização pode aparecer em inglês.
+              Você será redirecionado para fazer login com segurança.
+              Após o login, você poderá configurar sua página de vendas.
             </p>
           </div>
         </CardContent>

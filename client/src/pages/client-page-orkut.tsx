@@ -165,13 +165,13 @@ export default function ClientPageOrkut() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col space-y-2">
-              <Button variant="secondary" size="sm" className="bg-white/20 hover:bg-white/30 border-white/30">
-                <Heart className="h-4 w-4 mr-2" />
+            <div className="flex flex-row space-x-2 md:flex-col md:space-x-0 md:space-y-2">
+              <Button variant="secondary" size="sm" className="bg-white/20 hover:bg-white/30 border-white/30 text-xs">
+                <Heart className="h-3 w-3 mr-1" />
                 Curtir
               </Button>
-              <Button variant="secondary" size="sm" className="bg-white/20 hover:bg-white/30 border-white/30">
-                <Share2 className="h-4 w-4 mr-2" />
+              <Button variant="secondary" size="sm" className="bg-white/20 hover:bg-white/30 border-white/30 text-xs">
+                <Share2 className="h-3 w-3 mr-1" />
                 Compartilhar
               </Button>
             </div>
@@ -205,8 +205,8 @@ export default function ClientPageOrkut() {
 
       <div className="max-w-4xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Sidebar - Informações */}
-          <div className="lg:col-span-1 space-y-6">
+          {/* Sidebar - Informações - Hidden on mobile when other tabs are active */}
+          <div className={`lg:col-span-1 space-y-6 ${activeTab !== 'perfil' ? 'hidden lg:block' : ''}`}>
             {/* Card de Informações */}
             <Card className="bg-white/80 backdrop-blur-sm shadow-lg border-0">
               <CardHeader>
@@ -354,7 +354,7 @@ export default function ClientPageOrkut() {
           </div>
 
           {/* Conteúdo Principal */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className={`space-y-6 ${activeTab === 'perfil' ? 'lg:col-span-2' : 'col-span-1 lg:col-span-3'}`}>
             {activeTab === "perfil" && (
               <div className="space-y-6">
                 {/* Mensagem Personalizada */}
